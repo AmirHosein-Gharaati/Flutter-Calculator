@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'buttos.dart';
+import 'buttons.dart';
 import 'package:math_expressions/math_expressions.dart';
 
 void main() => runApp(MyApp());
