@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
     '2',
     '1',
     '+',
-    '6',
+    '0',
     '.',
     'ANS',
     '='
@@ -53,19 +53,19 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: <Widget>[
           Expanded(
-            flex: 1,
             child: Container(
+              height: double.infinity,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   SizedBox(
-                    height: 20,
+                    height: 10.0,
                   ),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(30),
                     child: Container(
                       color: Colors.white,
-                      padding: EdgeInsets.all(20),
+                      padding: EdgeInsets.all(20.0),
                       child: Text(
                         userQuestion,
                         style: TextStyle(fontSize: 20),
@@ -92,11 +92,11 @@ class _HomePageState extends State<HomePage> {
           Expanded(
             flex: 2,
             child: Container(
-              child: GridView.builder(
-                  itemCount: buttons.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 4),
-                  itemBuilder: (BuildContext context, int index) {
+              child: GridView.count(
+                  physics: NeverScrollableScrollPhysics(),
+                  childAspectRatio: 3 / 2.5,
+                  crossAxisCount: 4,
+                  children: List.generate(buttons.length, (index) {
                     //clear button
                     if (index == 0) {
                       return MyButton(
@@ -147,7 +147,7 @@ class _HomePageState extends State<HomePage> {
                       color: isOperatorr ? Colors.deepPurple : Colors.white,
                       textColor: isOperatorr ? Colors.white : Colors.deepPurple,
                     );
-                  }),
+                  })),
             ),
           ),
         ],
