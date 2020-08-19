@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'buttons.dart';
 import 'package:math_expressions/math_expressions.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 void main() => runApp(MyApp());
 
@@ -42,7 +44,6 @@ class _HomePageState extends State<HomePage> {
     '+',
     '0',
     '.',
-    'ANS',
     '='
   ];
 
@@ -92,7 +93,70 @@ class _HomePageState extends State<HomePage> {
           Expanded(
             flex: 2,
             child: Container(
-              child: GridView.count(
+              child: StaggeredGridView.countBuilder(
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: buttons.length,
+                  crossAxisCount: 4,
+                  itemBuilder: (BuildContext context, int index) {
+                    if (index == 0) {
+                      return MyButton(
+                        buttonTapeed: () {
+                          setState(() {
+                            userQuestion = '';
+                          });
+                        },
+                        buttonText: buttons[index],
+                        color: Colors.green,
+                        textColor: Colors.white,
+                      );
+                      //DEL button
+                    } else if (index == 1) {
+                      return MyButton(
+                        buttonTapeed: () {
+                          setState(() {
+                            userQuestion = userQuestion.substring(
+                                0, userQuestion.length - 1);
+                          });
+                        },
+                        buttonText: buttons[index],
+                        color: Colors.red,
+                        textColor: Colors.white,
+                      );
+                    }
+                    //equal button
+                    else if (index == buttons.length - 1) {
+                      return MyButton(
+                        buttonTapeed: () {
+                          setState(() {
+                            evaluateString();
+                          });
+                        },
+                        buttonText: buttons[index],
+                        color: Colors.deepPurple,
+                        textColor: Colors.white,
+                      );
+                    }
+                    bool isOperatorr = isOperator(buttons[index]);
+                    return MyButton(
+                      buttonTapeed: () {
+                        setState(() {
+                          userQuestion += buttons[index];
+                        });
+                      },
+                      buttonText: buttons[index],
+                      color: isOperatorr ? Colors.deepPurple : Colors.white,
+                      textColor: isOperatorr ? Colors.white : Colors.deepPurple,
+                    );
+                  },
+                  staggeredTileBuilder: (int index) {
+                    if (index != buttons.length - 1) {
+                      return StaggeredTile.count(1, 0.83);
+                    } else {
+                      return StaggeredTile.count(2, 0.83);
+                    }
+                  }),
+
+              /*GridView.count(
                   physics: NeverScrollableScrollPhysics(),
                   childAspectRatio: 3 / 2.5,
                   crossAxisCount: 4,
@@ -147,7 +211,7 @@ class _HomePageState extends State<HomePage> {
                       color: isOperatorr ? Colors.deepPurple : Colors.white,
                       textColor: isOperatorr ? Colors.white : Colors.deepPurple,
                     );
-                  })),
+                  })),*/
             ),
           ),
         ],
@@ -168,10 +232,23 @@ class _HomePageState extends State<HomePage> {
     finalQuestion = finalQuestion.replaceAll('x', '*');
 
     Parser p = Parser();
-    Expression exp = p.parse(finalQuestion);
+    Expression exp;
     ContextModel cm = ContextModel();
-    double eval = exp.evaluate(EvaluationType.REAL, cm);
+    double eval;
+    int evalInt;
 
-    userAnswer = eval.toString();
+    try {
+      exp = p.parse(finalQuestion);
+      eval = exp.evaluate(EvaluationType.REAL, cm);
+      if (eval == eval.toInt()) {
+        evalInt = eval.toInt();
+        userAnswer = evalInt.toString();
+      } else {
+        userAnswer = eval.toString();
+      }
+    } catch (e) {
+      print(e);
+      userAnswer = "Invalid input";
+    }
   }
 }

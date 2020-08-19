@@ -69,6 +69,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_staggered_grid_view:
+    dependency: "direct main"
+    description:
+      name: flutter_staggered_grid_view
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.2"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -89,7 +96,7 @@ packages:
     source: hosted
     version: "0.12.6"
   math_expressions:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: math_expressions
       url: "https://pub.dartlang.org"
@@ -193,3 +200,4 @@ packages:
     version: "3.6.1"
 sdks:
   dart: ">=2.7.0 <3.0.0"
+  flutter: ">=1.17.0"
