@@ -25,13 +25,12 @@ class _HomePageState extends State<HomePage> {
   var userAnswer = '';
 
   final List<String> buttons = [
-    'SHIFT',
+    'C',
+    '%',
+    '^',
+    'DEL',
     '(',
     ')',
-    '^',
-    'C',
-    'DEL',
-    '%',
     '÷',
     '9',
     '8',
@@ -70,11 +69,11 @@ class _HomePageState extends State<HomePage> {
                           topLeft: Radius.circular(30),
                           topRight: Radius.circular(30)),
                       child: Container(
-                        color: Colors.grey[300],
+                        color: Colors.white,
                         padding: EdgeInsets.all(15.0),
                         child: Text(
                           userQuestion,
-                          style: TextStyle(fontSize: 20),
+                          style: TextStyle(fontSize: 22),
                         ),
                         alignment: Alignment.centerLeft,
                       ),
@@ -85,11 +84,11 @@ class _HomePageState extends State<HomePage> {
                         bottomLeft: Radius.circular(30),
                       ),
                       child: Container(
-                        color: Colors.white,
+                        color: Colors.grey[300],
                         padding: EdgeInsets.all(15),
                         child: Text(
                           userAnswer,
-                          style: TextStyle(fontSize: 20),
+                          style: TextStyle(fontSize: 22),
                         ),
                         alignment: Alignment.centerRight,
                       ),
@@ -174,7 +173,7 @@ class _HomePageState extends State<HomePage> {
                     );
                   },
                   staggeredTileBuilder: (int index) {
-                    if (buttons[index] == "=") {
+                    if (buttons[index] == "=" || buttons[index] == "C") {
                       return StaggeredTile.count(2, 0.7);
                     } else {
                       return StaggeredTile.count(1, 0.7);
