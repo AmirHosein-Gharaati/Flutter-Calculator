@@ -10,13 +10,15 @@ class MyButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: buttonTapeed,
-      child: Padding(
-        padding: const EdgeInsets.all(6.0),
-        child: ClipRRect(
-            borderRadius: BorderRadius.circular(25.0),
-            child: Container(
+    return Padding(
+      padding: const EdgeInsets.all(6.0),
+      child: ClipRRect(
+          borderRadius: BorderRadius.circular(25.0),
+          child: Container(
+            color: color,
+            child: RaisedButton(
+              highlightColor: Colors.orange,
+              onPressed: buttonTapeed,
               color: color,
               child: Center(
                 child: Text(
@@ -24,8 +26,8 @@ class MyButton extends StatelessWidget {
                   style: TextStyle(color: textColor, fontSize: 28.0),
                 ),
               ),
-            )),
-      ),
+            ),
+          )),
     );
   }
 }

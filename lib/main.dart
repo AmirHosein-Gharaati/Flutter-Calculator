@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'buttons.dart';
 import 'package:math_expressions/math_expressions.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 void main() => runApp(MyApp());
 
@@ -98,6 +97,7 @@ class _HomePageState extends State<HomePage> {
                   itemCount: buttons.length,
                   crossAxisCount: 4,
                   itemBuilder: (BuildContext context, int index) {
+                    //C button
                     if (index == 0) {
                       return MyButton(
                         buttonTapeed: () {
@@ -109,8 +109,9 @@ class _HomePageState extends State<HomePage> {
                         color: Colors.green,
                         textColor: Colors.white,
                       );
-                      //DEL button
-                    } else if (index == 1) {
+                    }
+                    //DEL button
+                    else if (index == 1) {
                       return MyButton(
                         buttonTapeed: () {
                           setState(() {
@@ -155,63 +156,6 @@ class _HomePageState extends State<HomePage> {
                       return StaggeredTile.count(2, 0.83);
                     }
                   }),
-
-              /*GridView.count(
-                  physics: NeverScrollableScrollPhysics(),
-                  childAspectRatio: 3 / 2.5,
-                  crossAxisCount: 4,
-                  children: List.generate(buttons.length, (index) {
-                    //clear button
-                    if (index == 0) {
-                      return MyButton(
-                        buttonTapeed: () {
-                          setState(() {
-                            userQuestion = '';
-                          });
-                        },
-                        buttonText: buttons[index],
-                        color: Colors.green,
-                        textColor: Colors.white,
-                      );
-                      //DEL button
-                    } else if (index == 1) {
-                      return MyButton(
-                        buttonTapeed: () {
-                          setState(() {
-                            userQuestion = userQuestion.substring(
-                                0, userQuestion.length - 1);
-                          });
-                        },
-                        buttonText: buttons[index],
-                        color: Colors.red,
-                        textColor: Colors.white,
-                      );
-                    }
-                    //equal button
-                    else if (index == buttons.length - 1) {
-                      return MyButton(
-                        buttonTapeed: () {
-                          setState(() {
-                            evaluateString();
-                          });
-                        },
-                        buttonText: buttons[index],
-                        color: Colors.deepPurple,
-                        textColor: Colors.white,
-                      );
-                    }
-                    bool isOperatorr = isOperator(buttons[index]);
-                    return MyButton(
-                      buttonTapeed: () {
-                        setState(() {
-                          userQuestion += buttons[index];
-                        });
-                      },
-                      buttonText: buttons[index],
-                      color: isOperatorr ? Colors.deepPurple : Colors.white,
-                      textColor: isOperatorr ? Colors.white : Colors.deepPurple,
-                    );
-                  })),*/
             ),
           ),
         ],
