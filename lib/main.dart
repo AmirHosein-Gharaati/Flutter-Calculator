@@ -25,10 +25,14 @@ class _HomePageState extends State<HomePage> {
   var userAnswer = '';
 
   final List<String> buttons = [
+    'SHIFT',
+    '(',
+    ')',
+    '^',
     'C',
     'DEL',
     '%',
-    '/',
+    '÷',
     '9',
     '8',
     '7',
@@ -41,8 +45,8 @@ class _HomePageState extends State<HomePage> {
     '2',
     '1',
     '+',
-    '0',
     '.',
+    '0',
     '='
   ];
 
@@ -55,37 +59,43 @@ class _HomePageState extends State<HomePage> {
           Expanded(
             child: Container(
               height: double.infinity,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(30),
-                    child: Container(
-                      color: Colors.white,
-                      padding: EdgeInsets.all(20.0),
-                      child: Text(
-                        userQuestion,
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      alignment: Alignment.centerLeft,
+              child: SafeArea(
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(
+                      height: 20,
                     ),
-                  ),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(30),
-                    child: Container(
-                      color: Colors.white,
-                      padding: EdgeInsets.all(20),
-                      child: Text(
-                        userAnswer,
-                        style: TextStyle(fontSize: 20),
+                    ClipRRect(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(30),
+                          topRight: Radius.circular(30)),
+                      child: Container(
+                        color: Colors.grey[300],
+                        padding: EdgeInsets.all(15.0),
+                        child: Text(
+                          userQuestion,
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        alignment: Alignment.centerLeft,
                       ),
-                      alignment: Alignment.centerRight,
                     ),
-                  ),
-                ],
+                    ClipRRect(
+                      borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(30),
+                        bottomLeft: Radius.circular(30),
+                      ),
+                      child: Container(
+                        color: Colors.white,
+                        padding: EdgeInsets.all(15),
+                        child: Text(
+                          userAnswer,
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        alignment: Alignment.centerRight,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -98,8 +108,9 @@ class _HomePageState extends State<HomePage> {
                   crossAxisCount: 4,
                   itemBuilder: (BuildContext context, int index) {
                     //C button
-                    if (index == 0) {
+                    if (buttons[index] == "C") {
                       return MyButton(
+                        fontSize: 28.0,
                         buttonTapeed: () {
                           setState(() {
                             userQuestion = '';
@@ -111,8 +122,9 @@ class _HomePageState extends State<HomePage> {
                       );
                     }
                     //DEL button
-                    else if (index == 1) {
+                    else if (buttons[index] == "DEL") {
                       return MyButton(
+                        fontSize: 28.0,
                         buttonTapeed: () {
                           setState(() {
                             userQuestion = userQuestion.substring(
@@ -125,8 +137,9 @@ class _HomePageState extends State<HomePage> {
                       );
                     }
                     //equal button
-                    else if (index == buttons.length - 1) {
+                    else if (buttons[index] == "=") {
                       return MyButton(
+                        fontSize: 28.0,
                         buttonTapeed: () {
                           setState(() {
                             evaluateString();
@@ -137,8 +150,19 @@ class _HomePageState extends State<HomePage> {
                         textColor: Colors.white,
                       );
                     }
+                    //SHIFT button
+                    else if (buttons[index] == 'SHIFT') {
+                      return MyButton(
+                        fontSize: 20.0,
+                        buttonTapeed: () {},
+                        buttonText: 'SHIFT',
+                        color: Colors.orange,
+                        textColor: Colors.white,
+                      );
+                    }
                     bool isOperatorr = isOperator(buttons[index]);
                     return MyButton(
+                      fontSize: 28.0,
                       buttonTapeed: () {
                         setState(() {
                           userQuestion += buttons[index];
@@ -150,10 +174,10 @@ class _HomePageState extends State<HomePage> {
                     );
                   },
                   staggeredTileBuilder: (int index) {
-                    if (index != buttons.length - 1) {
-                      return StaggeredTile.count(1, 0.83);
+                    if (buttons[index] == "=") {
+                      return StaggeredTile.count(2, 0.7);
                     } else {
-                      return StaggeredTile.count(2, 0.83);
+                      return StaggeredTile.count(1, 0.7);
                     }
                   }),
             ),
@@ -164,7 +188,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   bool isOperator(String b) {
-    if (b == '+' || b == '-' || b == 'x' || b == '/' || b == '%') {
+    if (b == '+' || b == '-' || b == 'x' || b == '÷' || b == '%' || b == '^') {
       return true;
     } else {
       return false;
@@ -174,6 +198,7 @@ class _HomePageState extends State<HomePage> {
   void evaluateString() {
     String finalQuestion = userQuestion;
     finalQuestion = finalQuestion.replaceAll('x', '*');
+    finalQuestion = finalQuestion.replaceAll('÷', '/');
 
     Parser p = Parser();
     Expression exp;

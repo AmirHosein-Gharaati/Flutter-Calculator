@@ -5,8 +5,14 @@ class MyButton extends StatelessWidget {
   final textColor;
   final String buttonText;
   final buttonTapeed;
+  final fontSize;
 
-  MyButton({this.color, this.textColor, this.buttonText, this.buttonTapeed});
+  MyButton(
+      {this.color,
+      this.textColor,
+      this.buttonText,
+      this.buttonTapeed,
+      this.fontSize});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +29,7 @@ class MyButton extends StatelessWidget {
               child: Center(
                 child: Text(
                   buttonText,
-                  style: TextStyle(color: textColor, fontSize: 28.0),
+                  style: TextStyle(color: textColor, fontSize: fontSize),
                 ),
               ),
             ),
