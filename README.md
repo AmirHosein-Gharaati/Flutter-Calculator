@@ -2,7 +2,7 @@
 
 My first flutter app.
 
-![](https://github.com/AmirHosein-Gharaati/Flutter-Calculator/blob/master/Screen%20Shots/shot.png)
+<img src="https://github.com/AmirHosein-Gharaati/Flutter-Calculator/blob/master/Screen%20Shots/shot.png" width="210" height="400">
 
 ## Getting Started
 
