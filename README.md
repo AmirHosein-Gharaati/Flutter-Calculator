@@ -1,6 +1,8 @@
 # calculator
 
-A new Flutter project.
+My first flutter app.
+
+![](https://github.com/AmirHosein-Gharaati/Flutter-Calculator/blob/master/Screen%20Shots/shot.png)
 
 ## Getting Started
 
