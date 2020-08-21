@@ -19,11 +19,11 @@ class MyButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(6.0),
       child: ClipRRect(
-          borderRadius: BorderRadius.circular(25.0),
+          borderRadius: BorderRadius.circular(30.0),
           child: Container(
             color: color,
             child: RaisedButton(
-              highlightColor: Colors.orange,
+              highlightColor: Colors.lightBlue,
               onPressed: buttonTapeed,
               color: color,
               child: Center(

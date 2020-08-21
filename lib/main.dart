@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'buttons.dart';
 import 'package:math_expressions/math_expressions.dart';
+import 'package:number_display/number_display.dart';
 
 void main() => runApp(MyApp());
 
@@ -23,14 +24,15 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   var userQuestion = '';
   var userAnswer = '';
+  final display = createDisplay(length: 12);
 
   final List<String> buttons = [
     'C',
-    '%',
-    '^',
-    'DEL',
     '(',
     ')',
+    'DEL',
+    '%',
+    '^',
     '÷',
     '9',
     '8',
@@ -52,7 +54,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.purple[100],
+      backgroundColor: Colors.grey[900],
       body: Column(
         children: <Widget>[
           Expanded(
@@ -64,35 +66,30 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(
                       height: 20,
                     ),
-                    ClipRRect(
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(30),
-                          topRight: Radius.circular(30)),
+                    Container(
+                      color: Colors.grey[900],
+                      padding: EdgeInsets.all(15.0),
+                      child: Text(
+                        userQuestion,
+                        style: TextStyle(fontSize: 22, color: Colors.white),
+                      ),
+                      alignment: Alignment.centerLeft,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
                       child: Container(
+                        height: 1.0,
                         color: Colors.white,
-                        padding: EdgeInsets.all(15.0),
-                        child: Text(
-                          userQuestion,
-                          style: TextStyle(fontSize: 22),
-                        ),
-                        alignment: Alignment.centerLeft,
                       ),
                     ),
-                    ClipRRect(
-                      borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(30),
-                        bottomLeft: Radius.circular(30),
-                      ),
-                      child: Container(
-                        color: Colors.grey[300],
+                    Container(
+                        color: Colors.grey[900],
                         padding: EdgeInsets.all(15),
                         child: Text(
                           userAnswer,
-                          style: TextStyle(fontSize: 22),
+                          style: TextStyle(fontSize: 45, color: Colors.white),
                         ),
-                        alignment: Alignment.centerRight,
-                      ),
-                    ),
+                        alignment: Alignment.centerLeft),
                   ],
                 ),
               ),
@@ -123,7 +120,7 @@ class _HomePageState extends State<HomePage> {
                     //DEL button
                     else if (buttons[index] == "DEL") {
                       return MyButton(
-                        fontSize: 28.0,
+                        fontSize: 22.0,
                         buttonTapeed: () {
                           setState(() {
                             userQuestion = userQuestion.substring(
@@ -145,32 +142,22 @@ class _HomePageState extends State<HomePage> {
                           });
                         },
                         buttonText: buttons[index],
-                        color: Colors.deepPurple,
-                        textColor: Colors.white,
-                      );
-                    }
-                    //SHIFT button
-                    else if (buttons[index] == 'SHIFT') {
-                      return MyButton(
-                        fontSize: 20.0,
-                        buttonTapeed: () {},
-                        buttonText: 'SHIFT',
-                        color: Colors.orange,
+                        color: Colors.indigo[400],
                         textColor: Colors.white,
                       );
                     }
                     bool isOperatorr = isOperator(buttons[index]);
                     return MyButton(
-                      fontSize: 28.0,
-                      buttonTapeed: () {
-                        setState(() {
-                          userQuestion += buttons[index];
-                        });
-                      },
-                      buttonText: buttons[index],
-                      color: isOperatorr ? Colors.deepPurple : Colors.white,
-                      textColor: isOperatorr ? Colors.white : Colors.deepPurple,
-                    );
+                        fontSize: 28.0,
+                        buttonTapeed: () {
+                          setState(() {
+                            userQuestion += buttons[index];
+                          });
+                        },
+                        buttonText: buttons[index],
+                        color:
+                            isOperatorr ? Colors.yellow[800] : Colors.grey[800],
+                        textColor: Colors.white);
                   },
                   staggeredTileBuilder: (int index) {
                     if (buttons[index] == "=" || buttons[index] == "C") {
@@ -210,13 +197,13 @@ class _HomePageState extends State<HomePage> {
       eval = exp.evaluate(EvaluationType.REAL, cm);
       if (eval == eval.toInt()) {
         evalInt = eval.toInt();
-        userAnswer = evalInt.toString();
+        userAnswer = display(evalInt).toString();
       } else {
-        userAnswer = eval.toString();
+        userAnswer = display(eval).toString();
       }
     } catch (e) {
       print(e);
-      userAnswer = "Invalid input";
+      userAnswer = "Invalid";
     }
   }
 }
