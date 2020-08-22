@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'buttons.dart';
 import 'package:math_expressions/math_expressions.dart';
-import 'package:number_display/number_display.dart';
 
 void main() => runApp(MyApp());
 
@@ -24,7 +23,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   var userQuestion = '';
   var userAnswer = '';
-  final display = createDisplay(length: 12);
 
   final List<String> buttons = [
     'C',
@@ -50,6 +48,7 @@ class _HomePageState extends State<HomePage> {
     '0',
     '='
   ];
+  TextEditingController inputtextField = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +86,7 @@ class _HomePageState extends State<HomePage> {
                         padding: EdgeInsets.all(15),
                         child: Text(
                           userAnswer,
-                          style: TextStyle(fontSize: 45, color: Colors.white),
+                          style: TextStyle(fontSize: 40, color: Colors.white),
                         ),
                         alignment: Alignment.centerLeft),
                   ],
@@ -138,7 +137,7 @@ class _HomePageState extends State<HomePage> {
                         fontSize: 28.0,
                         buttonTapeed: () {
                           setState(() {
-                            evaluateString();
+                            userAnswer = evaluateString();
                           });
                         },
                         buttonText: buttons[index],
@@ -181,7 +180,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void evaluateString() {
+  String evaluateString() {
     String finalQuestion = userQuestion;
     finalQuestion = finalQuestion.replaceAll('x', '*');
     finalQuestion = finalQuestion.replaceAll('÷', '/');
@@ -197,13 +196,13 @@ class _HomePageState extends State<HomePage> {
       eval = exp.evaluate(EvaluationType.REAL, cm);
       if (eval == eval.toInt()) {
         evalInt = eval.toInt();
-        userAnswer = display(evalInt).toString();
+        return evalInt.toString();
       } else {
-        userAnswer = display(eval).toString();
+        return eval.toString();
       }
     } catch (e) {
       print(e);
-      userAnswer = "Invalid";
+      return "Invalid";
     }
   }
 }
