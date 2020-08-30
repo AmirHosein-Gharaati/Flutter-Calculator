@@ -29,7 +29,10 @@ class MyButton extends StatelessWidget {
               child: Center(
                 child: Text(
                   buttonText,
-                  style: TextStyle(color: textColor, fontSize: fontSize),
+                  style: TextStyle(
+                      color: textColor,
+                      fontSize: fontSize,
+                      fontFamily: 'Raleway'),
                 ),
               ),
             ),

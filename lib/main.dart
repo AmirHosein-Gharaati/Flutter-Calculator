@@ -26,164 +26,221 @@ class _HomePageState extends State<HomePage> {
 
   final List<String> buttons = [
     'C',
+    'DEL',
     '(',
     ')',
-    'DEL',
-    '%',
     '^',
+    '√',
+    '%',
+    'abs',
     '÷',
-    '9',
-    '8',
-    '7',
-    'x',
-    '6',
-    '5',
-    '4',
-    '-',
-    '3',
-    '2',
     '1',
+    '2',
+    '3',
+    'cot',
+    '×',
+    '4',
+    '5',
+    '6',
+    'tan',
+    '-',
+    '7',
+    '8',
+    '9',
+    'cos',
     '+',
-    '.',
+    '+/-',
     '0',
+    '.',
+    'sin',
     '='
   ];
-  TextEditingController inputtextField = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[900],
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            child: Container(
-              height: double.infinity,
-              child: SafeArea(
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Container(
-                      color: Colors.grey[900],
-                      padding: EdgeInsets.all(15.0),
-                      child: Text(
-                        userQuestion,
-                        style: TextStyle(fontSize: 22, color: Colors.white),
+      body: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topRight,
+                end: Alignment.bottomLeft,
+                colors: [Colors.purple[600], Colors.black])),
+        child: Column(
+          children: <Widget>[
+            Expanded(
+              child: Container(
+                height: double.infinity,
+                child: SafeArea(
+                  child: Column(
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Container(
+                            child: IconButton(
+                              icon: Icon(Icons.settings),
+                              color: Colors.white,
+                              onPressed: () {},
+                            ),
+                            alignment: Alignment.topLeft,
+                          ),
+                          Container(
+                            alignment: Alignment.topRight,
+                            child: IconButton(
+                              icon: Icon(Icons.wb_sunny),
+                              onPressed: () {},
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
                       ),
-                      alignment: Alignment.centerLeft,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      child: Container(
-                        height: 1.0,
-                        color: Colors.white,
+                      Container(
+                        padding: EdgeInsets.all(15.0),
+                        child: Text(
+                          userQuestion,
+                          style: TextStyle(fontSize: 22, color: Colors.white),
+                        ),
+                        alignment: Alignment.centerRight,
                       ),
-                    ),
-                    Container(
-                        color: Colors.grey[900],
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        child: Container(
+                          height: 0.5,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Container(
                         padding: EdgeInsets.all(15),
                         child: Text(
                           userAnswer,
-                          style: TextStyle(fontSize: 40, color: Colors.white),
+                          style: TextStyle(fontSize: 35, color: Colors.white),
                         ),
-                        alignment: Alignment.centerLeft),
-                  ],
+                        alignment: Alignment.centerRight,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Container(
-              child: StaggeredGridView.countBuilder(
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: buttons.length,
-                  crossAxisCount: 4,
-                  itemBuilder: (BuildContext context, int index) {
-                    //C button
-                    if (buttons[index] == "C") {
-                      return MyButton(
-                        fontSize: 28.0,
-                        buttonTapeed: () {
-                          setState(() {
-                            userQuestion = '';
-                          });
-                        },
-                        buttonText: buttons[index],
-                        color: Colors.green,
-                        textColor: Colors.white,
-                      );
-                    }
-                    //DEL button
-                    else if (buttons[index] == "DEL") {
-                      return MyButton(
-                        fontSize: 22.0,
-                        buttonTapeed: () {
-                          setState(() {
-                            userQuestion = userQuestion.substring(
-                                0, userQuestion.length - 1);
-                          });
-                        },
-                        buttonText: buttons[index],
-                        color: Colors.red,
-                        textColor: Colors.white,
-                      );
-                    }
-                    //equal button
-                    else if (buttons[index] == "=") {
-                      return MyButton(
-                        fontSize: 28.0,
-                        buttonTapeed: () {
-                          setState(() {
-                            userAnswer = evaluateString();
-                          });
-                        },
-                        buttonText: buttons[index],
-                        color: Colors.indigo[400],
-                        textColor: Colors.white,
-                      );
-                    }
-                    bool isOperatorr = isOperator(buttons[index]);
-                    return MyButton(
-                        fontSize: 28.0,
-                        buttonTapeed: () {
-                          setState(() {
-                            userQuestion += buttons[index];
-                          });
-                        },
-                        buttonText: buttons[index],
-                        color:
-                            isOperatorr ? Colors.yellow[800] : Colors.grey[800],
-                        textColor: Colors.white);
-                  },
-                  staggeredTileBuilder: (int index) {
-                    if (buttons[index] == "=" || buttons[index] == "C") {
-                      return StaggeredTile.count(2, 0.7);
-                    } else {
-                      return StaggeredTile.count(1, 0.7);
-                    }
-                  }),
+            Expanded(
+              flex: 2,
+              child: ClipRRect(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30.0),
+                    topRight: Radius.circular(30.0)),
+                child: Container(
+                  color: Colors.grey[850],
+                  child: StaggeredGridView.countBuilder(
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: buttons.length,
+                      crossAxisCount: 5,
+                      itemBuilder: (BuildContext context, int index) {
+                        //C button
+                        if (buttons[index] == "C") {
+                          return MyButton(
+                            fontSize: 28.0,
+                            buttonTapeed: () {
+                              setState(() {
+                                userQuestion = '';
+                              });
+                            },
+                            buttonText: buttons[index],
+                            color: Colors.purple[800],
+                            textColor: Colors.white,
+                          );
+                        }
+                        //DEL button
+                        else if (buttons[index] == "DEL") {
+                          return MyButton(
+                            fontSize: 18.0,
+                            buttonTapeed: () {
+                              setState(() {
+                                userQuestion = userQuestion.substring(
+                                    0, userQuestion.length - 1);
+                              });
+                            },
+                            buttonText: buttons[index],
+                            color: Colors.red,
+                            textColor: Colors.white,
+                          );
+                        }
+                        //equal button
+                        else if (buttons[index] == "=") {
+                          return MyButton(
+                            fontSize: 28.0,
+                            buttonTapeed: () {
+                              setState(() {
+                                userAnswer = evaluateString();
+                              });
+                            },
+                            buttonText: buttons[index],
+                            color: Colors.green,
+                            textColor: Colors.white,
+                          );
+                        } else if (buttons[index] == "+/-") {
+                          return MyButton(
+                            fontSize: 26.0,
+                            buttonTapeed: () {
+                              setState(() {
+                                userQuestion = addMinus(userQuestion);
+                              });
+                            },
+                            buttonText: buttons[index],
+                            color: Colors.grey[850],
+                            textColor: Colors.white,
+                          );
+                        }
+
+                        bool isthreealpha = isThreeAlpha(buttons[index]);
+                        return MyButton(
+                            fontSize: isthreealpha ? 22.0 : 26.0,
+                            buttonTapeed: () {
+                              setState(() {
+                                userQuestion += buttons[index];
+                              });
+                            },
+                            buttonText: buttons[index],
+                            color: Colors.grey[850],
+                            textColor: Colors.white);
+                      },
+                      staggeredTileBuilder: (int index) {
+                        if (buttons[index] == "C") {
+                          return StaggeredTile.count(2, 0.87);
+                        } else {
+                          return StaggeredTile.count(1, 0.87);
+                        }
+                      }),
+                ),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
-  bool isOperator(String b) {
-    if (b == '+' || b == '-' || b == 'x' || b == '÷' || b == '%' || b == '^') {
+  bool isThreeAlpha(String b) {
+    if (b == 'abs' || b == 'sin' || b == 'cos' || b == 'tan' || b == 'cot') {
       return true;
     } else {
       return false;
     }
   }
 
+  String addMinus(String userQuestion) {
+    if (userQuestion[0] == '-') {
+      userQuestion = userQuestion.substring(1);
+    } else {
+      userQuestion = '-' + userQuestion;
+    }
+    return userQuestion;
+  }
+
   String evaluateString() {
     String finalQuestion = userQuestion;
-    finalQuestion = finalQuestion.replaceAll('x', '*');
+    finalQuestion = finalQuestion.replaceAll('×', '*');
     finalQuestion = finalQuestion.replaceAll('÷', '/');
+    finalQuestion = finalQuestion.replaceAll('√', 'sqrt');
 
     Parser p = Parser();
     Expression exp;
