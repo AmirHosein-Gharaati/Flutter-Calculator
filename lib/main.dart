@@ -61,10 +61,9 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topRight,
-                end: Alignment.bottomLeft,
-                colors: [Colors.purple[600], Colors.black])),
+          image: DecorationImage(
+              image: AssetImage("assets/images/bg/bg.png"), fit: BoxFit.fill),
+        ),
         child: Column(
           children: <Widget>[
             Expanded(
@@ -78,7 +77,7 @@ class _HomePageState extends State<HomePage> {
                         children: <Widget>[
                           Container(
                             child: IconButton(
-                              icon: Icon(Icons.settings),
+                              icon: Icon(Icons.dehaze),
                               color: Colors.white,
                               onPressed: () {},
                             ),
@@ -196,7 +195,9 @@ class _HomePageState extends State<HomePage> {
                             fontSize: isthreealpha ? 22.0 : 26.0,
                             buttonTapeed: () {
                               setState(() {
-                                userQuestion += buttons[index];
+                                userQuestion += (isthreealpha)
+                                    ? buttons[index] + '('
+                                    : buttons[index];
                               });
                             },
                             buttonText: buttons[index],
@@ -238,9 +239,13 @@ class _HomePageState extends State<HomePage> {
 
   String evaluateString() {
     String finalQuestion = userQuestion;
+    if (finalQuestion == '') {
+      return "";
+    }
     finalQuestion = finalQuestion.replaceAll('×', '*');
     finalQuestion = finalQuestion.replaceAll('÷', '/');
     finalQuestion = finalQuestion.replaceAll('√', 'sqrt');
+    finalQuestion = finalQuestion.replaceAll('cot', '1/tan');
 
     Parser p = Parser();
     Expression exp;
@@ -259,7 +264,7 @@ class _HomePageState extends State<HomePage> {
       }
     } catch (e) {
       print(e);
-      return "Invalid";
+      return "Error";
     }
   }
 }
