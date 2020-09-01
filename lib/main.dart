@@ -192,7 +192,7 @@ class _HomePageState extends State<HomePage> {
 
                         bool isthreealpha = isThreeAlpha(buttons[index]);
                         return MyButton(
-                            fontSize: isthreealpha ? 18.0 : 26.0,
+                            fontSize: isthreealpha ? 18.0 : 28.0,
                             buttonTapeed: () {
                               setState(() {
                                 addChar(buttons[index], isthreealpha);
