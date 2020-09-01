@@ -151,7 +151,7 @@ class _HomePageState extends State<HomePage> {
                         //DEL button
                         else if (buttons[index] == "DEL") {
                           return MyButton(
-                            fontSize: 18.0,
+                            fontSize: 15.0,
                             buttonTapeed: () {
                               setState(() {
                                 userQuestion = userQuestion.substring(
@@ -178,7 +178,7 @@ class _HomePageState extends State<HomePage> {
                           );
                         } else if (buttons[index] == "+/-") {
                           return MyButton(
-                            fontSize: 22.0,
+                            fontSize: 20.0,
                             buttonTapeed: () {
                               setState(() {
                                 userQuestion = addMinus(userQuestion);
@@ -192,7 +192,7 @@ class _HomePageState extends State<HomePage> {
 
                         bool isthreealpha = isThreeAlpha(buttons[index]);
                         return MyButton(
-                            fontSize: isthreealpha ? 20.0 : 26.0,
+                            fontSize: isthreealpha ? 18.0 : 26.0,
                             buttonTapeed: () {
                               setState(() {
                                 userQuestion += (isthreealpha)
