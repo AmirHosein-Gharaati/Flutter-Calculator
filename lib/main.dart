@@ -94,7 +94,7 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                       Container(
-                        padding: EdgeInsets.all(15.0),
+                        padding: EdgeInsets.all(7.0),
                         child: Text(
                           userQuestion,
                           style: TextStyle(fontSize: 22, color: Colors.white),
@@ -109,10 +109,10 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.all(15),
+                        padding: EdgeInsets.all(8),
                         child: Text(
                           userAnswer,
-                          style: TextStyle(fontSize: 33, color: Colors.white),
+                          style: TextStyle(fontSize: 30, color: Colors.white),
                         ),
                         alignment: Alignment.centerRight,
                       ),
@@ -195,9 +195,7 @@ class _HomePageState extends State<HomePage> {
                             fontSize: isthreealpha ? 18.0 : 26.0,
                             buttonTapeed: () {
                               setState(() {
-                                userQuestion += (isthreealpha)
-                                    ? buttons[index] + '('
-                                    : buttons[index];
+                                addChar(buttons[index], isthreealpha);
                               });
                             },
                             buttonText: buttons[index],
@@ -228,11 +226,19 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  void addChar(String s, bool isThreeAlpha) {
+    if (userQuestion.length <= 25) {
+      userQuestion += (isThreeAlpha) ? s + '(' : s;
+    }
+  }
+
   String addMinus(String userQuestion) {
     if (userQuestion[0] == '-') {
       userQuestion = userQuestion.substring(1);
     } else {
-      userQuestion = '-' + userQuestion;
+      if (userQuestion.length <= 25) {
+        userQuestion = '-' + userQuestion;
+      }
     }
     return userQuestion;
   }
