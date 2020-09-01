@@ -112,7 +112,7 @@ class _HomePageState extends State<HomePage> {
                         padding: EdgeInsets.all(15),
                         child: Text(
                           userAnswer,
-                          style: TextStyle(fontSize: 35, color: Colors.white),
+                          style: TextStyle(fontSize: 33, color: Colors.white),
                         ),
                         alignment: Alignment.centerRight,
                       ),
@@ -178,7 +178,7 @@ class _HomePageState extends State<HomePage> {
                           );
                         } else if (buttons[index] == "+/-") {
                           return MyButton(
-                            fontSize: 26.0,
+                            fontSize: 22.0,
                             buttonTapeed: () {
                               setState(() {
                                 userQuestion = addMinus(userQuestion);
@@ -192,7 +192,7 @@ class _HomePageState extends State<HomePage> {
 
                         bool isthreealpha = isThreeAlpha(buttons[index]);
                         return MyButton(
-                            fontSize: isthreealpha ? 22.0 : 26.0,
+                            fontSize: isthreealpha ? 20.0 : 26.0,
                             buttonTapeed: () {
                               setState(() {
                                 userQuestion += (isthreealpha)
@@ -256,6 +256,7 @@ class _HomePageState extends State<HomePage> {
     try {
       exp = p.parse(finalQuestion);
       eval = exp.evaluate(EvaluationType.REAL, cm);
+
       if (eval == eval.toInt()) {
         evalInt = eval.toInt();
         return evalInt.toString();
