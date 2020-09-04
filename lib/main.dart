@@ -112,7 +112,7 @@ class _HomePageState extends State<HomePage> {
                         padding: EdgeInsets.all(8),
                         child: Text(
                           userAnswer,
-                          style: TextStyle(fontSize: 30, color: Colors.white),
+                          style: TextStyle(fontSize: 40, color: Colors.white),
                         ),
                         alignment: Alignment.centerRight,
                       ),
