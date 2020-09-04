@@ -2,7 +2,7 @@
 
 My first flutter app.
 
-<img src="https://github.com/AmirHosein-Gharaati/Flutter-Calculator/blob/master/Screen%20Shots/ScreenShot2.png" width="210" height="400">
+<img src="https://github.com/AmirHosein-Gharaati/Flutter-Calculator/blob/master/Screen%20Shots/sc3.png" width="210" height="400">
 
 ## Getting Started
 
