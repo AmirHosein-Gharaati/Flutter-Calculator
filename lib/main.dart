@@ -26,33 +26,33 @@ class _HomePageState extends State<HomePage> {
 
   final List<String> buttons = [
     'C',
-    'DEL',
+    'CE',
     '(',
     ')',
-    '^',
-    '√',
     '%',
+    'sin',
+    'cos',
+    'tan',
+    'cot',
     'abs',
-    '÷',
     '1',
     '2',
     '3',
-    'cot',
-    '×',
+    '^',
+    '√',
     '4',
     '5',
     '6',
-    'tan',
-    '-',
+    '×',
+    '÷',
     '7',
     '8',
     '9',
-    'cos',
     '+',
+    '-',
     '+/-',
     '0',
     '.',
-    'sin',
     '='
   ];
 
@@ -92,6 +92,9 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                         ],
+                      ),
+                      SizedBox(
+                        height: 5.0,
                       ),
                       Container(
                         padding: EdgeInsets.all(7.0),
@@ -148,10 +151,10 @@ class _HomePageState extends State<HomePage> {
                             textColor: Colors.white,
                           );
                         }
-                        //DEL button
-                        else if (buttons[index] == "DEL") {
+                        //CE button
+                        else if (buttons[index] == "CE") {
                           return MyButton(
-                            fontSize: 15.0,
+                            fontSize: 24.0,
                             buttonTapeed: () {
                               setState(() {
                                 userQuestion = userQuestion.substring(
@@ -159,51 +162,58 @@ class _HomePageState extends State<HomePage> {
                               });
                             },
                             buttonText: buttons[index],
-                            color: Colors.red,
+                            color: Colors.purple[800],
                             textColor: Colors.white,
                           );
                         }
                         //equal button
                         else if (buttons[index] == "=") {
                           return MyButton(
-                            fontSize: 28.0,
+                            fontSize: 50.0,
                             buttonTapeed: () {
                               setState(() {
                                 userAnswer = evaluateString();
                               });
                             },
                             buttonText: buttons[index],
-                            color: Colors.green,
+                            color: Colors.yellow[900],
                             textColor: Colors.white,
                           );
                         } else if (buttons[index] == "+/-") {
                           return MyButton(
-                            fontSize: 20.0,
+                            fontSize: 21.0,
                             buttonTapeed: () {
                               setState(() {
                                 userQuestion = addMinus(userQuestion);
                               });
                             },
                             buttonText: buttons[index],
-                            color: Colors.grey[850],
+                            color: Colors.grey[800],
                             textColor: Colors.white,
                           );
                         }
 
                         bool isthreealpha = isThreeAlpha(buttons[index]);
+                        bool isnumber = isNumber(buttons[index]);
+                        bool isoperator = isOperator(buttons[index]);
                         return MyButton(
-                            fontSize: isthreealpha ? 18.0 : 28.0,
+                            fontSize:
+                                isthreealpha ? 21.0 : isoperator ? 32.0 : 28.0,
                             buttonTapeed: () {
                               setState(() {
                                 addChar(buttons[index], isthreealpha);
                               });
                             },
                             buttonText: buttons[index],
-                            color: Colors.grey[850],
+                            color: isnumber
+                                ? Colors.grey[700]
+                                : isoperator
+                                    ? Colors.purple[800]
+                                    : Colors.grey[800],
                             textColor: Colors.white);
                       },
                       staggeredTileBuilder: (int index) {
-                        if (buttons[index] == "C") {
+                        if (buttons[index] == "=") {
                           return StaggeredTile.count(2, 0.87);
                         } else {
                           return StaggeredTile.count(1, 0.87);
@@ -220,6 +230,31 @@ class _HomePageState extends State<HomePage> {
 
   bool isThreeAlpha(String b) {
     if (b == 'abs' || b == 'sin' || b == 'cos' || b == 'tan' || b == 'cot') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  bool isOperator(String b) {
+    if (b == '^' || b == '+' || b == '-' || b == '×' || b == '√' || b == '÷') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  bool isNumber(String b) {
+    if (b == '0' ||
+        b == '1' ||
+        b == '2' ||
+        b == '3' ||
+        b == '4' ||
+        b == '5' ||
+        b == '6' ||
+        b == '7' ||
+        b == '8' ||
+        b == '9') {
       return true;
     } else {
       return false;
